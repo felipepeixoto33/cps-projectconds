@@ -1,0 +1,29 @@
+.chart-box {
+  margin: 0 auto;
+  margin-top: 5%;
+  max-width: 90%;
+  height: 420px;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+.text {
+  font-weight: lighter;
+  font-size: 12px;
+  color: #585e67;
+  transition: color 0.2s;
+}
+
+.selected {
+  color: white;
+}
+
+.chart-types-grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.chart {
+  margin: 0 auto;
+}

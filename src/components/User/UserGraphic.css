@@ -1,0 +1,27 @@
+.user-box {
+  margin: 0 auto;
+  max-width: 65%;
+  max-height: 140px;
+  padding: 20px;
+  max-height: fit-content;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: stretch;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.user-img-box {
+  grid-row: 1/4;
+  border-radius: 10px;
+}
+
+.user-name,
+.user-apartment,
+.user-spent {
+  font-size: 12px;
+  font-weight: lighter;
+}
