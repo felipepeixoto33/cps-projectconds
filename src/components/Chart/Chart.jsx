@@ -12,15 +12,37 @@ const Chart = (props) => {
     monthly: false,
   };
   const [selected, setSelected] = useState(selectedValues);
+  const [allData, setAllData] = useState([]);
 
   const daily = selected.daily === true ? 'selected' : null;
   const weekly = selected.weekly === true ? 'selected' : null;
   const monthly = selected.monthly === true ? 'selected' : null;
 
-  console.log(props.data);
-
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+
+  useEffect(() => {
+    Object.values(props.data).forEach((value) => {
+      console.log(value.test);
+      setAllData((arr) => [...arr, value.test]);
+      console.log('executado');
+    });
+  }, []);
+
+  useEffect(() => {
+    let defaultChart = {
+      labels: ['00', '01', '02', '03', '04', '05', '06', '07'], //Todas as Horas desde 00:00 até a hora atual.
+      datasets: [
+        {
+          label: 'Custo',
+          data: allData, //Data para cada hora do item 'labels'. Mostra o gasto em reais.
+          backgroundColor: 'blue',
+        },
+      ],
+    };
+
+    setChartData(defaultChart);
+  }, [allData]);
 
   const handleDaily = () => {
     setSelected({ daily: true, weekly: false, monthly: false });
@@ -30,7 +52,8 @@ const Chart = (props) => {
       datasets: [
         {
           label: 'Custo',
-          data: [10.7, 5.2, 0.2, 4, 10.3, 100], //Data para cada hora do item 'labels'. Mostra o gasto em reais.
+          data: allData, //Data para cada hora do item 'labels'. Mostra o gasto em reais.
+          backgroundColor: 'blue',
         },
       ],
     };
@@ -47,6 +70,7 @@ const Chart = (props) => {
         {
           label: 'Custo',
           data: [22, 34.0, 55.0, 23.5, 40.7, 50.8, 60], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
+          backgroundColor: 'blue',
         },
       ],
     };
@@ -72,6 +96,7 @@ const Chart = (props) => {
         {
           label: 'Custo',
           data: [150, 200, 180, 150, 130, 120, 145], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
+          backgroundColor: 'blue',
         },
       ],
     };

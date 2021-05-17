@@ -6,20 +6,20 @@ import fire from './Firebase';
 
 function App() {
   const [values, setValues] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getData();
-    //pushData();
-  }, []);
-
-  const getData = () => {
-    //Get data from the Realtime Database
     const dataRef = fire.database().ref('data');
+    setLoading(true);
     dataRef.on('value', (snapshot) => {
       let data = snapshot.val();
       setValues(data);
+      console.log(values);
+      setLoading(false);
     });
-  };
+
+    //console.log(values);
+  }, []);
 
   const pushData = () => {
     fire.database().ref('data').push({ test: 20.5 });
@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <User />
-      <Chart data={values} />
+      {loading === true ? 'Loading' : <Chart data={values} />}
     </div>
   );
 }
