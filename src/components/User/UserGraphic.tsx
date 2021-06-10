@@ -19,11 +19,13 @@ const User = (props: UserProps) => {
             />
           </div>
 
-          <label className="user-name">Name: Andrea</label>
+          <label className="user-name">Nome: Ricardo</label>
 
-          <label className="user-apartment">Apartment: C12</label>
+          <label className="user-apartment">Apartamento: C12</label>
 
-          <label className="user-spent">Current Spend: ${props.cost}</label>
+          <label className="user-spent">
+            Gasto Acumulado: R${Math.round(props.cost * 100) / 100}
+          </label>
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ const User = (props) => {
 
   return (
     <div>
-      <UserGraphic cost={cost} />
+      <UserGraphic cost={145 + props.cost} />
     </div>
   );
 };

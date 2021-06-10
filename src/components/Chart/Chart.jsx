@@ -21,26 +21,54 @@ const Chart = (props) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
+  const roundedCost = Math.round(props.cost * 100) / 100;
+
   useEffect(() => {
     Object.values(props.data).forEach((value) => {
-      console.log(value.test);
-      setAllData((arr) => [...arr, value.test]);
-      console.log('executado');
+      //console.log(value.data);
+      setAllData((arr) => [...arr, value.data]);
     });
   }, []);
 
   useEffect(() => {
+    //console.log(allData.length);
+
     let defaultChart = {
       labels: ['00', '01', '02', '03', '04', '05', '06', '07'], //Todas as Horas desde 00:00 até a hora atual.
       datasets: [
         {
-          label: 'Custo',
-          data: allData, //Data para cada hora do item 'labels'. Mostra o gasto em reais.
+          label: 'Custo (R$)',
+          data: [10, 15, 25, 35, 12, 19, 27, 34 + roundedCost], //Data para cada hora do item 'labels'. Mostra o gasto em reais.
           backgroundColor: 'blue',
         },
       ],
     };
 
+    let chartDefaultOptions = {
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Custo Durante as Horas de Hoje',
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Horas',
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'R$',
+          },
+        },
+      },
+    };
+
+    setChartOptions(chartDefaultOptions);
     setChartData(defaultChart);
   }, [allData]);
 
@@ -51,13 +79,37 @@ const Chart = (props) => {
       labels: ['00', '01', '02', '03', '04', '05', '06', '07'], //Todas as Horas desde 00:00 até a hora atual.
       datasets: [
         {
-          label: 'Custo',
-          data: allData, //Data para cada hora do item 'labels'. Mostra o gasto em reais.
+          label: 'Custo (R$)',
+          data: [10, 15, 25, 35, 12, 19, 27, 34 + roundedCost], //Data para cada hora do item 'labels'. Mostra o gasto em reais. Era pra ser o 'allData'
           backgroundColor: 'blue',
         },
       ],
     };
 
+    let chartDailyOptions = {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Custo Durante as Horas de Hoje',
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Horas',
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'R$',
+          },
+        },
+      },
+    };
+
+    setChartOptions(chartDailyOptions);
     setChartData(chartDayStructure);
   };
 
@@ -68,18 +120,34 @@ const Chart = (props) => {
       labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'], //Os dias da Semana Desde Segunta até o dia Atual.
       datasets: [
         {
-          label: 'Custo',
-          data: [22, 34.0, 55.0, 23.5, 40.7, 50.8, 60], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
+          label: 'Custo (R$)',
+          data: [22, 34.0, 55.0, 23.5, 40.7, 50.8, 60 + roundedCost], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
           backgroundColor: 'blue',
         },
       ],
     };
 
     let chartWeeklyOptions = {
-      title: {
-        display: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Custo Durante os Dias da Semana',
+        },
       },
-      text: 'Custo Por Dia da Semana',
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Dias',
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'R$',
+          },
+        },
+      },
     };
 
     setChartData(chartWeeklyStructure);
@@ -94,13 +162,37 @@ const Chart = (props) => {
       labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'], //Os meses do Ano Desde Janeiro até o mës Atual.
       datasets: [
         {
-          label: 'Custo',
-          data: [150, 200, 180, 150, 130, 120, 145], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
+          label: 'Custo (R$)',
+          data: [150, 200, 180, 150, 130, 120, 145 + roundedCost], //Data para cada dia do item 'labels'. Mostra o gasto em reais.
           backgroundColor: 'blue',
         },
       ],
     };
 
+    let chartMonthlyOptions = {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Custo Durante os Meses do Ano',
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Meses',
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'R$',
+          },
+        },
+      },
+    };
+
+    setChartOptions(chartMonthlyOptions);
     setChartData(chartMonthlyStructure);
   };
 
@@ -119,7 +211,7 @@ const Chart = (props) => {
                 handleDaily();
               }}
             >
-              <label className={`text chart-daily-item ${daily}`}>Daily</label>
+              <label className={`text chart-daily-item ${daily}`}>Horas</label>
             </div>
             <div
               className="chart-weekly-box"
@@ -127,9 +219,7 @@ const Chart = (props) => {
                 handleWeekly();
               }}
             >
-              <label className={`text chart-weekly-item ${weekly}`}>
-                Weekly
-              </label>
+              <label className={`text chart-weekly-item ${weekly}`}>Dias</label>
             </div>
             <div
               className="chart-monthly-box"
@@ -138,17 +228,12 @@ const Chart = (props) => {
               }}
             >
               <label className={`text chart-montly-item ${monthly}`}>
-                Monthly
+                Meses
               </label>
             </div>
           </div>
-          <div className="chart">
-            <Bar
-              data={chartData}
-              options={{
-                title: { display: true, text: 'Dias da Semana', fontSize: 50 },
-              }}
-            />
+          <div className="chart-container">
+            <Bar className="chart" data={chartData} options={chartOptions} />
           </div>
         </Paper>
       </div>
